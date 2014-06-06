@@ -1,8 +1,8 @@
 //
-//  MusicListViewController.swift
+//  ViewController.swift
 //  musicPlayer
 //
-//  Created by Koichi Sawada on 2014/06/05.
+//  Created by sawapi on 2014/06/05.
 //  Copyright (c) 2014年 sawapi. All rights reserved.
 //
 
@@ -38,13 +38,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     }
     
+    
+     // sectionの数を返す
     func numberOfSectionsInTableView( tableView: UITableView! ) -> Int {
         
         return albums.count
     }
     
-    
-    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int  {
+    // 各sectionのitem数を返す
+    func tableView( tableView: UITableView!, numberOfRowsInSection section: Int ) -> Int  {
         
         return albums[section].songs.count
     }
@@ -59,19 +61,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell;
     }
     
+    // sectionのタイトル
     func tableView( tableView: UITableView?, titleForHeaderInSection section: Int ) -> String {
         
         return albums[section].albumTitle
     }
     
+    // 選択した音楽を再生
     func tableView( tableView: UITableView?, didSelectRowAtIndexPath indexPath:NSIndexPath! ) {
         
+        // soundIdからMediaItemを取得
         let songId: NSNumber = albums[indexPath.section].songs[indexPath.row].songId
         let item: MPMediaItem = songQuery.getItem( songId )
         
         let url: NSURL = item.valueForProperty( MPMediaItemPropertyAssetURL ) as NSURL
-        //var error: NSErrorPointer? = nil
         
+        // これをAVAudioPlayerに突っ込むとエラーでる。。あとで調べる
+        //var error: NSError? = nil
+        
+        // 再生
         audio = AVAudioPlayer( contentsOfURL: url, error: nil )
         audio.play()
         
@@ -85,6 +93,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             audio.stop()
             self.title = "Songs"
         }
-        println( "stop" )
+
     }
 }

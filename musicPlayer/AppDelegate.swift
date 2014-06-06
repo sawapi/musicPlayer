@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  musicPlayer
 //
-//  Created by Koichi Sawada on 2014/06/05.
+//  Created by sawapi on 2014/06/05.
 //  Copyright (c) 2014年 sawapi. All rights reserved.
 //
 

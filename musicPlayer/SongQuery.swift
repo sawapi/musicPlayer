@@ -2,21 +2,25 @@
 //  SongQuery.swift
 //  musicPlayer
 //
-//  Created by Koichi Sawada on 2014/06/06.
+//  Created by sawapi on 2014/06/06.
 //  Copyright (c) 2014年 sawapi. All rights reserved.
 //
 
 import Foundation
 import MediaPlayer
 
+// 曲情報
 struct SongInfo {
     
     var albumTitle: String
     var artistName: String
     var songTitle:  String
+    
+    // UInt64だとうまくいかなかった。バグ？
     var songId   :  NSNumber
 }
 
+// アルバム情報
 struct AlbumInfo {
     
     var albumTitle: String
@@ -25,10 +29,12 @@ struct AlbumInfo {
 
 class SongQuery {
     
+    // iPhoneに入ってる曲を全部返す
     func get() -> AlbumInfo[] {
         
         var albums: AlbumInfo[] = []
         
+        // アルバム情報から曲を取り出す
         var albumsQuery: MPMediaQuery = MPMediaQuery.albumsQuery()
         var albumItems: MPMediaItemCollection[] = albumsQuery.collections as MPMediaItemCollection[]
         var album: MPMediaItemCollection
@@ -69,6 +75,7 @@ class SongQuery {
         
     }
     
+    // songIdからMediaItemを取り出す
     func getItem( songId: NSNumber ) -> MPMediaItem {
     
         var property: MPMediaPropertyPredicate = MPMediaPropertyPredicate( value: songId, forProperty: MPMediaItemPropertyPersistentID )
